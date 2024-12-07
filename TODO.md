@@ -1,0 +1,4 @@
+- Create DB init scripts to
+  - Create the gutenberg Postgres user
+- Load all of that data into the DB
+- Test running the service with the data
