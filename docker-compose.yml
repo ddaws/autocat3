@@ -12,14 +12,5 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./docker/postgres/initdb:/docker-entrypoint-initdb.d
 
-  db-restore:
-    image: docker:dind
-    privileged: true
-    volumes:
-      - ./docker/postgres/dumps:/tmp/dumps
-      - ./docker/postgres/restore.sh:/usr/local/bin/restore
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: ["sh", "-c", "dockerd-entrypoint.sh & sleep 5 && /usr/local/bin/restore"]
-
 volumes:
   postgres_data:
