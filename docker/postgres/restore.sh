@@ -1,10 +1,13 @@
 #!/bin/sh
 
+# Set default directory or use the first argument if provided
+DUMPS_DIR=${1:-docker/postgres/dumps}
+
 # Find the latest dump file
-LATEST_DUMP=$(ls -t /tmp/dumps/*.pg_dump | head -n1)
+LATEST_DUMP=$(ls -t "$DUMPS_DIR"/*.pg_dump 2>/dev/null | head -n1)
 
 if [ -z "$LATEST_DUMP" ]; then
-    echo "No dump files found in /tmp/dumps"
+    echo "No dump files found in $DUMPS_DIR"
     exit 1
 fi
 
