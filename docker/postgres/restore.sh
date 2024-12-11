@@ -19,6 +19,6 @@ docker run --rm --network host \
     -v "${LATEST_DUMP}:/tmp/latest.pg_dump" \
     --env-file "${SCRIPT_DIR}/postgres.env" \
     postgres:10.23-alpine \
-    pg_restore -h localhost -p 5432 -U $POSTGRES_USER -W $POSTGRES_PASSWORD -d $POSTGRES_DB -v -c "/tmp/latest.pg_dump"
+    sh -c 'pg_restore -h localhost -p 5432 -U "$POSTGRES_USER" -d "$POSTGRES_DB" -v -c "/tmp/latest.pg_dump"'
 
 echo "Restore completed"
