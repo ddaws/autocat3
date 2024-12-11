@@ -12,5 +12,18 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./docker/postgres/initdb:/docker-entrypoint-initdb.d
 
+  db-restore:
+    image: postgres:10.23-alpine
+    environment:
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: gutenberg
+      PGHOST: db # Must match the database container
+      PGPORT: 5432
+    volumes:
+      - ./docker/postgres/dumps:/tmp/dumps
+      - ./docker/postgres/restore.sh:/usr/bin/restore
+    command: ["/usr/bin/restore", "/tmp/dumps"]
+
 volumes:
   postgres_data:
